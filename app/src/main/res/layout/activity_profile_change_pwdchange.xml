@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.Activity_profile_change_pwdchange">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/pwdchange_toptext"
+                android:text="새로운 비밀번호를 입력해 주세요."
+                android:textSize="23dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="22dp"
+                android:layout_marginRight="22dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/pwdchagne_pwdtext"
+                android:text="비밀번호"
+                android:textSize="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="22dp"
+                android:layout_marginRight="22dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pwdchange_toptext"/>
+
+            <EditText
+                android:id="@+id/pwd_input"
+                android:hint="비밀번호(8~32자리)"
+                android:paddingLeft="10dp"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="19dp"
+                android:layout_marginRight="19dp"
+                android:maxLength="32"
+                android:background="@drawable/shadow_signup_finish_editext_efect"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pwdchagne_pwdtext"
+                />
+
+            <EditText
+                android:id="@+id/pwdck_input"
+                android:hint="비밀번호 재입력"
+                android:paddingLeft="10dp"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="19dp"
+                android:layout_marginRight="19dp"
+                android:maxLength="32"
+                android:background="@drawable/shadow_signup_finish_editext_efect"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pwd_input"
+                />
+
+            <LinearLayout
+                android:id="@+id/first_text_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:weightSum="10"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pwdck_input">
+                <TextView
+                    android:text=" * "
+                    android:id="@+id/first_point"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/pwdck_input"/>
+
+                <TextView
+                    android:id="@+id/pwdinform_text"
+                    android:text="비밀번호는 8~32 자의 영문 대소문자, 숫자, 특수문자를 조합하여 설정해주세요."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="22dp"
+                    app:layout_constraintLeft_toRightOf="@id/first_point"
+                    app:layout_constraintTop_toTopOf="@id/first_point"
+                    app:layout_constraintBottom_toBottomOf="@id/first_point"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/second_text_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:weightSum="10"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/first_text_linear">
+                <TextView
+                    android:text=" * "
+                    android:id="@+id/second_point"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/pwdck_input"/>
+
+                <TextView
+                    android:id="@+id/pwdinform_second_text"
+                    android:text="다른 사이트에서 사용하는 것과 동일하거나 쉬운 비밀번호는 사용하지 마세요."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="22dp"
+                    app:layout_constraintLeft_toRightOf="@id/first_point"
+                    app:layout_constraintTop_toTopOf="@id/first_point"
+                    app:layout_constraintBottom_toBottomOf="@id/first_point"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/pwdchange_pwd_finish_btn"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:text="변 경 완 료"
+                android:textColor="#FFFF"
+                android:layout_marginTop="60dp"
+                android:padding="10dp"
+                android:background="@drawable/shadow_login_signin_btn_efect"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/second_text_linear"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "319637833615",
+    "project_id": "opentalk-31622",
+    "storage_bucket": "opentalk-31622.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319637833615:android:65f3e75e3f480b747f2dfa",
+        "android_client_info": {
+          "package_name": "com.example.opentalk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "319637833615-5c6uf3njaodffvgofrjua11djl9aqhme.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.opentalk",
+            "certificate_hash": "a7cbcb86d47904dfc44e629d9453c76b195a9491"
+          }
+        },
+        {
+          "client_id": "319637833615-jsc0vt64jtlu6kvcmg5q68v50rsavgde.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfTON8q79wZ8Z2ETVDpTFyishk5oUsPXQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "319637833615-jsc0vt64jtlu6kvcmg5q68v50rsavgde.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

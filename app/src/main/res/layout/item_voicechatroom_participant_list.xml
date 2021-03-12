@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:weightSum="100"
+    android:orientation="horizontal"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="2dp">
+
+    <!--프로필 이미지-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="40">
+        <!--프로필 사진-->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_img"
+            android:background="@drawable/profile4"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+        <!--방장 표시 VISIBLE,INVISIBLE로 표시-->
+        <ImageView
+            android:id="@+id/crwon_img"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:background="@drawable/crown"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--닉네임,본인 확인-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="25"
+        android:gravity="center_vertical">
+        <!--닉네임-->
+        <TextView
+            android:id="@+id/nickname"
+            android:text="닉네임입니다."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <!--본인 확인-->
+        <TextView
+            android:id="@+id/identity_chechk"
+            android:text="(본인)"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <!--기타 이미지 버튼-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="35"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!--마이크-->
+        <ImageView
+            android:id="@+id/mike_btn"
+            android:background="@drawable/microphone"
+            android:layout_width="27dp"
+            android:layout_height="27dp"/>
+
+        <!--스피커-->
+        <ImageView
+            android:id="@+id/speaker_btn"
+            android:layout_marginLeft="4dp"
+            android:background="@drawable/speaker_on"
+            android:layout_width="27dp"
+            android:layout_height="27dp"/>
+
+        <ImageView
+            android:id="@+id/user_kict_btn"
+            android:layout_width="27dp"
+            android:layout_height="21dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/getout" />
+
+    </LinearLayout>
+
+</LinearLayout>

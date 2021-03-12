@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPuple">#747dff</color>
+    <color name="colorPrimary">#d0d3ff</color>
+    <color name="colorSoftPuple">#dbddfc</color>
+    <color name="colorVerySoftPuple">#ece9ff</color>
+    <color name="colorlittledarkPuple">#cec4f7</color>
+    <color name="colorPuple_lobby_create_btn">#cec4f7</color>
+    <color name="colordarkPuple">#ab9edf</color>
+    <color name="colorSoftblue">#b1d0ff</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorgray">#aeaeae</color>
+    <color name="colorlittledarkgray">#666666</color>
+    <color name="colorblack">#000000</color>
+    <color name="colorgreen">#4cef7a</color>
+</resources>

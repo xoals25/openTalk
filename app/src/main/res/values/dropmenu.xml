@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="menu">
+        <item >전체</item>
+        <item >음성채팅</item>
+        <item >화상채팅</item>
+    </string-array>
+</resources>

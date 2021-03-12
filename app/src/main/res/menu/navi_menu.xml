@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/group_mypage"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/mypage"
+            android:title="마이페이지"
+            />
+    </group>
+    <group
+        android:id="@+id/group_friend"
+        android:checkableBehavior="single">
+    <item
+        android:id="@+id/friend"
+        android:title="친구목록"
+        />
+    </group>
+</menu>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:paddingTop="5dp"
+    android:paddingRight="5dp"
+    android:paddingLeft="8dp"
+    android:gravity="left"
+    android:weightSum="40">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="35"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/item_chat_friend_otherid_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="5">
+        <TextView
+            android:id="@+id/item_chat_friend_otherid_id"
+            android:text="아이디입니다."
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp">
+            <TextView
+                android:id="@+id/item_chat_friend_otherid_msg"
+                android:text="채팅 내용입니다."
+                android:textSize="18dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:paddingRight="8dp"
+                android:paddingLeft="5dp"
+                android:background="@drawable/viewline_rectangle"
+                android:layout_width="wrap_content"
+                android:maxWidth="226dp"
+                android:layout_height="wrap_content"
+                android:visibility="visible"/>
+            <LinearLayout
+                android:id="@+id/invite_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="220dp"
+                android:background="@drawable/viewline_rectangle"
+                android:visibility="gone"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/invite_msg"
+                    android:layout_gravity="center_horizontal"
+                    android:text="초대 메세지"
+                    android:textSize="18dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:paddingRight="8dp"
+                    android:paddingLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:maxWidth="220dp"
+                    android:layout_height="wrap_content"
+                    />
+                <Button
+                    android:id="@+id/invite_btn"
+                    android:text="입장"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/item_chat_friend_other_readstate"
+                    android:text="1"
+                    android:textColor="@color/colordarkPuple"
+                    android:textSize="14dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+                <TextView
+                    android:id="@+id/item_chat_friend_other_senddate"
+                    android:text="오후 3:52"
+                    android:textSize="13dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <!--    <ImageView-->
+        <!--        android:id="@+id/item_chat_friend_otherid_img"-->
+        <!--        android:paddingTop="6dp"-->
+        <!--        android:paddingBottom="6dp"-->
+        <!--        android:paddingLeft="8dp"-->
+        <!--        android:paddingRight="5dp"-->
+        <!--        android:scaleType="fitXY"-->
+        <!--        android:layout_width="150dp"-->
+        <!--        android:layout_height="150dp"-->
+        <!--        android:visibility="gone"/>-->
+    </LinearLayout>
+
+
+</LinearLayout>

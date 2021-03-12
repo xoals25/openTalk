@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#212224"
+    >
+
+    <!--참가자를 보여주는 레이아웃 -> room_particapant_list_LinearLayout-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#212224"
+        android:orientation="horizontal"
+        android:weightSum="100">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#212224"
+            android:layout_weight="85"/>
+
+        <LinearLayout
+            android:id="@+id/room_participant_list_LinearLayout"
+            android:layout_gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:layout_weight="15"
+            android:weightSum="100">
+
+            <!--여기에다가는 방제목 표시하는 곳-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="45">
+                <TextView
+                    android:textSize="21dp"
+                    android:id="@+id/room_participant_list_title"
+                    android:text="음성채팅방"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:textSize="17dp"
+                    android:text="(참여자 목록)"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="#ccc" />
+
+            <!--초대하기 버튼-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="46"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:background="@drawable/ic_baseline_person_add_24"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:text="친구 초대하기"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="#ccc" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/room_participant_list_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="9"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+<!--    &lt;!&ndash;채팅창 레이아웃&ndash;&gt;-->
+    <LinearLayout
+        android:id="@+id/room_chat_LinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:weightSum="20">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="bottom"
+            >
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/room_voice_msg_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    android:elevation="100dp"
+                    android:background="@drawable/dropshadow"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/voice_microphone"
+                        android:background="@drawable/microphone"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center_vertical"
+                        android:clickable="true"
+                        />
+                    <ImageView
+                        android:id="@+id/vocie_speaker"
+                        android:background="@drawable/speaker_on"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="8dp"
+                        android:clickable="true"/>
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/room_voice_chat_linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:orientation="horizontal"
+            android:layout_weight="16.8"
+            android:weightSum="10">
+            <EditText
+                android:id="@+id/room_voice_input"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="2"/>
+            <Button
+                android:id="@+id/room_voice_input_btn"
+                android:text="보내기"
+                android:background="#dbddfc"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="8"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</FrameLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+        <EditText
+            android:id="@+id/frag_friend_email"
+            android:hint="친구 요청하실 아이디를 입력해주세요."
+            android:textSize="20dp"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:paddingLeft="15dp"
+            android:background="@drawable/shadow_signup_finish_editext_efect"
+            android:layout_gravity="center_horizontal"/>
+        <Button
+            android:id="@+id/frag_friend_add_btn"
+            android:text="친구 요청 보내기"
+            android:layout_width="180dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="15dp"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:textColor="#FFFF"
+            android:background="@drawable/shadow_login_signin_btn_efect"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
