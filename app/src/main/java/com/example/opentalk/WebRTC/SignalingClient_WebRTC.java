@@ -86,7 +86,7 @@ public class SignalingClient_WebRTC {
 //            sslContext.init(null, trustAll, null);
 //            IO.setDefaultHostnameVerifier((hostname, session) -> true);
 //            IO.setDefaultSSLContext(sslContext);
-//            SocketSSL.set(options);
+            SocketSSL.set(options);
             socket = IO.socket(STREAM_HOST);
             socket.connect();
 
