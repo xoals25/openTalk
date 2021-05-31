@@ -96,7 +96,9 @@ public class Adapter_Friend_Wait extends RecyclerView.Adapter<Adapter_Friend_Wai
                         JSONObject jsonObject = new JSONObject();
                         jsonObject.put("type","friend_add_agree");
                         jsonObject.put("my_email_id", Activity_Lobby.userid);
-                        jsonObject.put("other_email_id",request_email_arrayList.get(position));
+                        jsonObject.put("other_email_id",request_email_arrayList.get(position).getUserid());
+                        Log.d(TAG, "onClick: my_email_id : "+Activity_Lobby.userid);
+                        Log.d(TAG, "onClick: my_email_id : "+request_email_arrayList.get(position).getUserid());
                         Socket_friend_choose_thread socket_friend_choose_thread = new Socket_friend_choose_thread(jsonObject);
                         socket_friend_choose_thread.start();
                         request_email_arrayList.remove(position);
@@ -119,7 +121,8 @@ public class Adapter_Friend_Wait extends RecyclerView.Adapter<Adapter_Friend_Wai
                         jsonObject.put("type","friend_add_refuse");
                         jsonObject.put("my_email_id", Activity_Lobby.userid);
                         jsonObject.put("other_email_id",request_email_arrayList.get(position).getUserid());
-
+                        Log.d(TAG, "onClick: my_email_id : "+Activity_Lobby.userid);
+                        Log.d(TAG, "onClick: my_email_id : "+request_email_arrayList.get(position).getUserid());
                         Socket_friend_choose_thread socket_friend_choose_thread = new Socket_friend_choose_thread(jsonObject);
                         socket_friend_choose_thread.start();
 

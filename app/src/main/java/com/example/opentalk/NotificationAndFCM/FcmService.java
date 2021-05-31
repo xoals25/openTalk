@@ -10,6 +10,7 @@ import com.example.opentalk.Activity.Activity_Friend_Chat;
 import com.example.opentalk.Activity.Activity_Friend_List;
 import com.example.opentalk.Activity.Activity_Lobby;
 import com.example.opentalk.BitmapConverter;
+import com.example.opentalk.ServerIp;
 import com.example.opentalk.SharedPreference.PreferenceManager_member;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -48,7 +49,7 @@ public class FcmService extends FirebaseMessagingService {
         /*url로 데이터 문자열 읽어오기...다음부터는 파일로하자 제발....... 혹은 다음엔 sql문 있을때 거기서 가져오자...*/
         if(!imgpath.equals("없음")){
             try {
-                URL url = new URL("http://3.36.188.116:81"+imgpath);
+                URL url = new URL(ServerIp.IP_ADDRESS_IMG_URL+imgpath);
                 Log.d(TAG, "onMessageReceived: url : "+url.getPath());
                 Log.d(TAG, "onMessageReceived: 확인작업업(notifi imgpath) imgpath : "+imgpath);
                 InputStream in = null;

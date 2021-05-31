@@ -10,6 +10,7 @@ import com.example.opentalk.Activity.Activity_Friend_List;
 import com.example.opentalk.Data.Friend_List_Data;
 import com.example.opentalk.Handler.Friend_list_Handler;
 import com.example.opentalk.Code.HandlerType_Code;
+import com.example.opentalk.ServerIp;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -152,7 +153,7 @@ public class HttpConnection_Friend_List extends AsyncTask<String,Void,String>{
                 /*
                 * 생각해 볼 것 : 친구가 수락을 하면 소켓으로 arraylist.add 되는데 이때 http통신으로 이미지를 받아오게된다면 중간에 꼬이지는 않을까???
                 * */
-                String serverurl = "http://3.36.188.116/opentalk/profile_img_load.php";
+                String serverurl = "http://"+ ServerIp.IP_ADDRESS_ADD_FOLDER_NAME +"/profile_img_load.php";
                 for (int i=0; i<friend_list_dataArrayList.size(); i++){
                     VolleyprofileIMG_Friend_List volleyprofileIMG = new VolleyprofileIMG_Friend_List(friend_list_dataArrayList,friend_list_handler,friend_list_dataArrayList.get(i).getFriend_email(),i);
                     volleyprofileIMG.profile_upload(serverurl);

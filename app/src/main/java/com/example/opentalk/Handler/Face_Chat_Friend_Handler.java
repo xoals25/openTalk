@@ -2,6 +2,8 @@ package com.example.opentalk.Handler;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +29,7 @@ public class Face_Chat_Friend_Handler extends Handler {
        if(msg.what == HandlerType_Code.HandlerType.ADAPTER_FRIEND_CHAT_LIST_NOTIFYDATASETCHANGED_ONE){
 //           adapter_chat_friend.notifyDataSetChanged();
 //           adapter_chat_friend.notifyItemChanged(((Activity_Friend_Chat)Activity_Friend_Chat.Activity_Friend_Chat_context).chat_msg_data_ArrayList.size()-1);
+
            adapter_chat_friend.notifyDataSetChanged();
            friend_chat_recyclerview.scrollToPosition(adapter_chat_friend.getItemCount() - 1);
         }

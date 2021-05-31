@@ -2,6 +2,7 @@ package com.example.opentalk;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.EditText;
 
@@ -42,6 +43,7 @@ public class AlertDialog_opentalk {
         final EditText edittext = new EditText(context);
         /*비밀번호 메소드 재설정(마지막 비밀번호 입력값도 숨겨주는 것으로 변경)*/
         edittext.setTransformationMethod(new CustomPwdMethod.CustomPasswordTransformationMethod());
+        edittext.setTextColor(Color.BLACK);
         alertDialog.setView(edittext);
 
 

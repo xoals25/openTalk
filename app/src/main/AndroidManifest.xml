@@ -45,7 +45,8 @@
             android:name=".Activity.Activity_Room_Create"
             android:theme="@style/MaterialAppTheme" />
         <activity android:name=".Activity.Activity_Room_Face" />
-        <activity android:name=".Activity.Activity_Room_Voice" />
+        <activity android:name=".Activity.Activity_Room_Voice"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".Activity.Activity_Friend_List" />
         <activity android:name=".Activity.Activity_Friend_Add" />
         <activity android:name=".Activity.Activity_Signup_Profileimg" />
@@ -54,7 +55,8 @@
         <activity android:name=".Activity.Activity_Mypage" />
         <activity android:name=".Activity.Activity_sociallogin_detail_information" />
         <activity android:name=".Activity.Activity_Login" />
-        <activity android:name=".Activity.Activity_Friend_Chat" />
+        <activity android:name=".Activity.Activity_Friend_Chat"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".Activity.Activity_Profile_Change" />
         <activity android:name=".Activity.Activity_pwd_found_pwdck" />
 

@@ -41,8 +41,6 @@ public class Activity_Friend_Add extends AppCompatActivity {
 //    String usernickname;
 
 //    /*socket 연결*/
-//    String SOCKET_SERVER_IP = "3.36.188.116";
-//    int SOCKET_SERVER_PORT = 8081;
 
     public TabPagerAdapter_frined_add tabPagerAdapter_frined_add;
 

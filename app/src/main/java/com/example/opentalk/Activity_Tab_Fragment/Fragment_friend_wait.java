@@ -22,6 +22,7 @@ import com.example.opentalk.Handler.Friend_wait_Handler;
 import com.example.opentalk.Http.HttpConnection_Friend_Wait;
 import com.example.opentalk.Http.HttpConnection_Lobby_Rooms;
 import com.example.opentalk.R;
+import com.example.opentalk.ServerIp;
 import com.example.opentalk.Socket_my.Socket_friend_receive_thread;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class Fragment_friend_wait extends Fragment {
     Adapter_Friend_Wait adapter_friend_wait;
 
     //요청한 친구 list 요청할 서버 주소
-    String IP_ADDRESS = "3.36.188.116/opentalk";
+    String IP_ADDRESS = ServerIp.IP_ADDRESS_ADD_FOLDER_NAME;
 
     //받은 친구 요청 리스트 요청할 http
     HttpConnection_Friend_Wait httpConnection_friend_wait;

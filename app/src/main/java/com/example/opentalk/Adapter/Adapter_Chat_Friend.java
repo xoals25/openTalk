@@ -25,6 +25,7 @@ import com.example.opentalk.Data.Chat_Msg_Data;
 import com.example.opentalk.Data.Chat_Msg_Data_Friend;
 import com.example.opentalk.Http.HttpConnection_room_enter;
 import com.example.opentalk.R;
+import com.example.opentalk.ServerIp;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,7 @@ import java.util.ArrayList;
 public class Adapter_Chat_Friend extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     String TAG ="Adapter_Chat_Friend";
     Context context;
-    ArrayList<Chat_Msg_Data_Friend> chat_msg_dataArrayList;
+    public ArrayList<Chat_Msg_Data_Friend> chat_msg_dataArrayList;
     String myid = Activity_Lobby.userid;
     String usernickname = Activity_Lobby.usernickname;
     TextView leftview;
@@ -257,7 +258,6 @@ public class Adapter_Chat_Friend extends RecyclerView.Adapter<RecyclerView.ViewH
                     int position = (int)invite_btn.getTag();
                     Intent intent;
                     Activity_Friend_Chat context = ((Activity_Friend_Chat) Activity_Friend_Chat.Activity_Friend_Chat_context);
-                    String IP_ADDRESS = "3.36.188.116/opentalk";
                     Log.d(TAG, "onClick: 확인작업 : "+chat_msg_dataArrayList.get(position).getOpenchatroomid());
                     int adapter_room_id = Integer.valueOf(chat_msg_dataArrayList.get(position).getOpenchatroomid());
                     String[] senddateSplit = chat_msg_dataArrayList.get(position).getMessage().split(" ");
@@ -266,11 +266,11 @@ public class Adapter_Chat_Friend extends RecyclerView.Adapter<RecyclerView.ViewH
                     title = senddateSplit[0];
                     if(chat_msg_dataArrayList.get(position).getMessage().contains("화상채팅")) {
                         HttpConnection_room_enter httpConnection_room_enter = new HttpConnection_room_enter(context,"face",adapter_room_id,title);
-                        httpConnection_room_enter.execute("http://"+IP_ADDRESS+"/room_enter.php",String.valueOf(adapter_room_id),"공개방","");
+                        httpConnection_room_enter.execute("http://"+ ServerIp.IP_ADDRESS_ADD_FOLDER_NAME+"/room_enter.php",String.valueOf(adapter_room_id),"공개방","");
                     }
                     else{
                         HttpConnection_room_enter httpConnection_room_enter = new HttpConnection_room_enter(context,"voice",adapter_room_id,title);
-                        httpConnection_room_enter.execute("http://"+IP_ADDRESS+"/room_enter.php",String.valueOf(adapter_room_id),"공개방","");
+                        httpConnection_room_enter.execute("http://"+ServerIp.IP_ADDRESS_ADD_FOLDER_NAME+"/room_enter.php",String.valueOf(adapter_room_id),"공개방","");
                     }
                 }
             });

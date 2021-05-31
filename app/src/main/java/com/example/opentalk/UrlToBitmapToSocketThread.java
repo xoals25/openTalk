@@ -26,7 +26,7 @@ public class UrlToBitmapToSocketThread extends Thread{
             if(request_email_arrayList.get(i).getBitmap()==null) {
                 try {
                     Bitmap bitmap = null;
-                    URL url = new URL("http://3.36.188.116:81" + request_email_arrayList.get(i).getImgpath());
+                    URL url = new URL("http://"+ServerIp.SERVER_IP+":81" + request_email_arrayList.get(i).getImgpath());
                     InputStream in = null;
                     in = url.openStream();
                     byte[] buffer = new byte[128];

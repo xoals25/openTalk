@@ -45,6 +45,7 @@ import com.example.opentalk.Retrofit.NicknameChange.NicknameChangeData;
 import com.example.opentalk.Retrofit.SignupCk;
 import com.example.opentalk.Retrofit.SignupCkData;
 import com.example.opentalk.SecurityUtil.SecurityUtilSHA;
+import com.example.opentalk.ServerIp;
 import com.example.opentalk.VolleyRequestQhelper;
 
 import java.io.InputStream;
@@ -109,6 +110,8 @@ public class Activity_Profile_Change extends AppCompatActivity {
         finishbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("TAG", "onClick: 확인 확인 확인");
+
                 finish();
             }
         });
@@ -238,7 +241,7 @@ public class Activity_Profile_Change extends AppCompatActivity {
 
     /*프로필 변경 서버통신(볼리)*/
     public void signupUpload(String img_String) {
-        String serverUrl="http://3.36.188.116/opentalk/imgchange.php";
+        String serverUrl="http://"+ ServerIp.IP_ADDRESS_ADD_FOLDER_NAME+"/imgchange.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -246,6 +249,9 @@ public class Activity_Profile_Change extends AppCompatActivity {
                     //로그인 데이터에 알맞게 아이템 장착해주기
                     Logindata logindata_after = new Logindata(logindata.getUserid(),logindata.getUserpwd(),logindata.getUsername(),img_String);
                     setLoignDataPref(Activity_Profile_Change.this,"login_inform",logindata_after);
+                    profileImgToString= img_String;
+                    Activity_Lobby.profileImgToString = img_String;
+
                 }
             }
         }, new Response.ErrorListener() {

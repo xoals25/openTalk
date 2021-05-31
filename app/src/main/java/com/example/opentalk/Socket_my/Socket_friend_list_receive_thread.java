@@ -3,6 +3,7 @@ package com.example.opentalk.Socket_my;
 import android.graphics.Bitmap;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
 
 import com.example.opentalk.Activity.Activity_Friend_Add;
 import com.example.opentalk.Activity.Activity_Friend_Chat;
@@ -217,6 +218,7 @@ public class Socket_friend_list_receive_thread extends Thread {
                 }
                 /*친구대화방에 내가 입장시*/
                 else if(type.equals("friend_enter_me")){
+                    Log.d(TAG, "run:  확인  friend_enter_me ");
                     JSONArray jsonArray = jsonObject.getJSONArray("allmsg");
                     Activity_Friend_Chat context = ((Activity_Friend_Chat)Activity_Friend_Chat.Activity_Friend_Chat_context);
                     if(context!=null) {
@@ -234,7 +236,7 @@ public class Socket_friend_list_receive_thread extends Thread {
                                     String msgtype = item.getString("msgtype");
                                     String roomtitle = "";
                                     String openchatroomid = "-1";
-
+//                                    Log.d(TAG, "run: 채팅 내용 확인 : content : "+content);
                                     if (msgtype.equals("textmsg")) {
 
                                     } else if (msgtype.equals("invitemsg")) {
@@ -245,9 +247,12 @@ public class Socket_friend_list_receive_thread extends Thread {
                                     if (fromnickname.equals(Activity_Lobby.usernickname)) {
                                         Chat_Msg_Data_Friend chat_msg_data_friend = new Chat_Msg_Data_Friend(fromnickname, content, ViewType_Code.ViewType.RIGHT_CONTENT, readstate, senddate, null, msgtype, openchatroomid, roomtitle);
                                         context.chat_msg_data_ArrayList.add(chat_msg_data_friend);
+                                        Log.d(TAG, "run: 채팅 내용 확인1 : content : "+content);
+
                                     } else {
                                         Chat_Msg_Data_Friend chat_msg_data_friend = new Chat_Msg_Data_Friend(fromnickname, content, ViewType_Code.ViewType.LEFT_CONTENT, readstate, senddate, null, msgtype, openchatroomid, roomtitle);
                                         context.chat_msg_data_ArrayList.add(chat_msg_data_friend);
+                                        Log.d(TAG, "run: 채팅 내용 확인2 : content : "+content);
                                     }
                                 }
                                 else if(jsonArray.get(i) instanceof String){
@@ -256,13 +261,21 @@ public class Socket_friend_list_receive_thread extends Thread {
                                     int lastChatId = Integer.valueOf(args[1]);
                                     context.firstMysqlCahtnum = numberOfchat;
                                     context.lastChatId = lastChatId;
-                                    Log.d(TAG, "run: 확인작업입니다 firstMysqlCahtnum : "+context.firstMysqlCahtnum);
                                 }
                             }
-                            //
-                            context.face_chat_friend_handler.sendEmptyMessage(HandlerType_Code.HandlerType.ADAPTER_FRIEND_CHAT_LIST_NOTIFYDATASETCHANGED_ONE);
                         }
+                        //
+                        context.face_chat_friend_handler.sendEmptyMessage(HandlerType_Code.HandlerType.ADAPTER_FRIEND_CHAT_LIST_NOTIFYDATASETCHANGED_ONE);
+                        context.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d(TAG, "run: 1");
+                                context.friend_chat_recyclerview.setVisibility(View.VISIBLE);
+                                context.pagingCheck=true;
+                            }
+                        });
                     }
+
                 }
                 /*친구가 채팅을 보낼때*/
                 else if(type.equals("friend_chat")){

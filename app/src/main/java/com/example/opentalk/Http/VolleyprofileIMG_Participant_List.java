@@ -33,7 +33,6 @@ public class VolleyprofileIMG_Participant_List {
         this.position =position;
         this.user_nickname = user_nickname;
     }
-    String serverurl = "http://3.36.188.116/opentalk/profile_img_load.php";
     //for문을 돌릴것 posi
     public void profile_upload(String serverurl){
 

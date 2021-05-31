@@ -53,6 +53,7 @@ import com.example.opentalk.R;
 import com.example.opentalk.Retrofit.ApiClient;
 import com.example.opentalk.Retrofit.InviteFriendList.InviteFriendList;
 import com.example.opentalk.Retrofit.InviteFriendList.InviteFriendListData;
+import com.example.opentalk.ServerIp;
 import com.example.opentalk.WebRTC.SignalingClient_WebRTC;
 import com.example.opentalk.VolleyRequestQhelper;
 import com.example.opentalk.WebRTC.Adapter.AdapterVideo;
@@ -75,6 +76,7 @@ import org.webrtc.MediaConstraints;
 import org.webrtc.MediaStream;
 import org.webrtc.PeerConnection;
 import org.webrtc.PeerConnectionFactory;
+import org.webrtc.ScreenCapturerAndroid;
 import org.webrtc.SessionDescription;
 import org.webrtc.SurfaceTextureHelper;
 import org.webrtc.VideoCapturer;
@@ -169,6 +171,7 @@ public class Activity_Room_Face extends AppCompatActivity implements SignalingCl
     EglBase.Context eglBaseContext;
     PeerConnectionFactory peerConnectionFactory;
     MediaStream mediaStream;
+
     List<PeerConnection.IceServer> iceServers;
     HashMap<String, PeerConnection> peerConnectionMap; //(key : socketId(나말고 다른참가자), value : PeerConnection)
     HashMap<String, ArrayList<IceCandidate>> icecandidateMap; //(key : socketId(나말고 다른참가자), value : PeerConnection) ->상대방이 나가면 PeerConnection의 IceCandidate제거하기 위함
@@ -662,7 +665,6 @@ public class Activity_Room_Face extends AppCompatActivity implements SignalingCl
     /*누군가 방에 입장할 때, sdp를 주고 받는데 단계.*/
     @Override
     public void onOfferReceived(JSONObject data) {
-
             final String socketId = data.optString("from");
             PeerConnection peerConnection = getOrCreatePeerConnection(socketId);
             peerConnection.setRemoteDescription(new SdpAdapter("setRemoteSdp:" + socketId),
@@ -746,7 +748,7 @@ public class Activity_Room_Face extends AppCompatActivity implements SignalingCl
             });
             position = participant_list_arrayList.size()-1;
         }
-        String serverurl = "http://3.36.188.116/opentalk/profile_img_load_nickname.php";
+        String serverurl = "http://"+ ServerIp.IP_ADDRESS_ADD_FOLDER_NAME +"/profile_img_load_nickname.php";
         VolleyprofileIMG_Participant_List_Face volleyprofileIMG_participant_list = new VolleyprofileIMG_Participant_List_Face(participant_list_arrayList,face_chat_handler,position,userNickname);
         volleyprofileIMG_participant_list.profile_upload(serverurl);
     }
@@ -767,7 +769,7 @@ public class Activity_Room_Face extends AppCompatActivity implements SignalingCl
            runOnUiThread(()->{
                    adapter_face_participant_list.notifyDataSetChanged();
            });
-           String serverurl = "http://3.36.188.116/opentalk/profile_img_load_nickname.php";
+           String serverurl = "http://"+ ServerIp.IP_ADDRESS_ADD_FOLDER_NAME+"/profile_img_load_nickname.php";
            int array_size = participant_list_arrayList.size();
 
            for (int i=0; i<array_size; i++){
@@ -829,6 +831,7 @@ public class Activity_Room_Face extends AppCompatActivity implements SignalingCl
         for (String deviceName : deviceNames) {
             if (enumerator.isFrontFacing(deviceName)) {
                 VideoCapturer videoCapturer = enumerator.createCapturer(deviceName, null);
+//                VideoCapturer videoCapturer = CallAc
 
                 if (videoCapturer != null) {
                     return videoCapturer;
@@ -908,10 +911,9 @@ public class Activity_Room_Face extends AppCompatActivity implements SignalingCl
     protected void onDestroy() {
         super.onDestroy();
 
-        String IP_ADDRESS = "3.36.188.116/opentalk";
         HttpConnection_room_exit httpConnection_room_exit;
         httpConnection_room_exit = new HttpConnection_room_exit(this);
-        httpConnection_room_exit.execute("http://"+IP_ADDRESS+"/room_exit.php",String.valueOf(room_name));
+        httpConnection_room_exit.execute("http://"+ServerIp.IP_ADDRESS_ADD_FOLDER_NAME+"/room_exit.php",String.valueOf(room_name));
 
         options=null;
         signalingClient_webRTC.destroy();

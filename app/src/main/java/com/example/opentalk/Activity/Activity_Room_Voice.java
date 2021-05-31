@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -26,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,6 +44,7 @@ import com.example.opentalk.Http.HttpConnection_room_exit;
 import com.example.opentalk.Http.VolleyprofileIMG_Participant_List;
 import com.example.opentalk.R;
 import com.example.opentalk.Code.ViewType_Code;
+import com.example.opentalk.ServerIp;
 import com.example.opentalk.VoiceCommunication.AudioReceiveThread;
 import com.example.opentalk.VoiceCommunication.AudioSendThread;
 import com.example.opentalk.VoiceCommunication.Data.OtherUserIP_Data;
@@ -87,7 +90,7 @@ public class Activity_Room_Voice extends AppCompatActivity {
     //참가자 레이아웃
     LinearLayout room_participant_list_LinearLayout;
     //채팅창 레이아웃
-    LinearLayout room_chat_LinearLayout;
+    ConstraintLayout room_chat_LinearLayout;
     /*핸들러들*/
     //화면 애니메이션할때 버튼 비활성화,활성화 해주는 핸들러
     Voice_Chat_Handler voice_chat_handler;
@@ -105,7 +108,7 @@ public class Activity_Room_Voice extends AppCompatActivity {
     /***노드 js 소켓 통신관련 - 소켓 객체생성***/
     private Socket mSocket;
     boolean kick_check = true; // true면 내가 나간것, false면 강퇴당한것.
-    String URL = "http://3.36.188.116:3000";
+    String URL = "http://"+ ServerIp.SERVER_IP+":3000";
     {
         try {
             mSocket = IO.socket(URL);
@@ -299,7 +302,7 @@ public class Activity_Room_Voice extends AppCompatActivity {
         //참가자 레이아웃
         room_participant_list_LinearLayout = (LinearLayout)findViewById(R.id.room_participant_list_LinearLayout);
         //채팅창 레이아웃
-        room_chat_LinearLayout = (LinearLayout)findViewById(R.id.room_chat_LinearLayout);
+        room_chat_LinearLayout = (ConstraintLayout)findViewById(R.id.room_chat_LinearLayout);
         /*로그인한 아이디 갖고있는 객체화 해주기*/
         logindata = getLoignDataPref(this,"login_inform");
 //        myid = logindata.getUsername(); //닉네임 가져오기
@@ -361,10 +364,9 @@ public class Activity_Room_Voice extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        String IP_ADDRESS = "3.36.188.116/opentalk";
         HttpConnection_room_exit httpConnection_room_exit;
         httpConnection_room_exit = new HttpConnection_room_exit(this);
-        httpConnection_room_exit.execute("http://"+IP_ADDRESS+"/room_exit.php",String.valueOf(room_num));
+        httpConnection_room_exit.execute("http://"+ ServerIp.IP_ADDRESS_ADD_FOLDER_NAME+"/room_exit.php",String.valueOf(room_num));
         //강퇴당한게 아니라 내가 나간걸때 동작
         if(kick_check){
             leave_room_emit();
@@ -484,7 +486,7 @@ public class Activity_Room_Voice extends AppCompatActivity {
                             adapter_voice_participant_list.notifyDataSetChanged();
                             //add 다해주고나서 notifyDataSetChanged해주고 이미지 받아오는 volley통신으로 이미지 받아오기
                             //해당 닉네임들은 어떻게 한번에 서버에 보낼까? 아니면 한번씩 보낼까? arraylist의 size만큼
-                            String serverurl = "http://3.36.188.116/opentalk/profile_img_load_nickname.php";
+                            String serverurl = "http://"+ ServerIp.IP_ADDRESS_ADD_FOLDER_NAME+"/profile_img_load_nickname.php";
                             int array_size = participant_list_arrayList.size();
                             for (int i=0; i<array_size; i++){
                                 String nickname_participant_tome = participant_list_arrayList.get(i).getNickname();
@@ -535,7 +537,7 @@ public class Activity_Room_Voice extends AppCompatActivity {
                             adapter_voice_participant_list.notifyDataSetChanged();
 
                             //이미지 받아오는 volley 통신해주기 (해당 nickname으로) ->한번만 하면된다.
-                            String serverurl = "http://3.36.188.116/opentalk/profile_img_load_nickname.php";
+                            String serverurl = "http://"+ ServerIp.IP_ADDRESS_ADD_FOLDER_NAME+"/profile_img_load_nickname.php";
                             VolleyprofileIMG_Participant_List volleyprofileIMG_participant_list = new VolleyprofileIMG_Participant_List(participant_list_arrayList,voice_chat_handler,position,nickname);
                             volleyprofileIMG_participant_list.profile_upload(serverurl);
 

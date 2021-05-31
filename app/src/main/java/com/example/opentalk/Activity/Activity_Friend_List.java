@@ -26,6 +26,7 @@ import com.example.opentalk.Handler.Friend_list_Handler;
 import com.example.opentalk.Http.HttpConnection_Friend_List;
 import com.example.opentalk.Http.VolleyprofileIMG_Friend_List;
 import com.example.opentalk.R;
+import com.example.opentalk.ServerIp;
 import com.example.opentalk.Socket_my.Socket_friend_list_receive_thread;
 import com.example.opentalk.VolleyRequestQhelper;
 
@@ -45,7 +46,7 @@ public class Activity_Friend_List extends AppCompatActivity {
 //    String usernickname;
 
     //http로 요청한 친구 list 요청할 서버 주소
-    String IP_ADDRESS = "3.36.188.116/opentalk";
+    String IP_ADDRESS = ServerIp.IP_ADDRESS_ADD_FOLDER_NAME;
 
     /*친구목록 뿌려주는 리사이클러뷰 관련*/
     RecyclerView friend_list_recyclerview;

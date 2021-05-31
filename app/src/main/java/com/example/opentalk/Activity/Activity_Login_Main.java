@@ -119,7 +119,6 @@ public class Activity_Login_Main extends AppCompatActivity {
 
     }
 
-    //프로필사진 확대 화면
     private void informDialog(String informtext){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();

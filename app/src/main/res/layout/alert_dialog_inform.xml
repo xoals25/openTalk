@@ -6,11 +6,13 @@
     android:background="#FFFF"
     android:paddingBottom="30dp"
     android:paddingLeft="15dp"
+    android:layout_gravity="center"
     android:paddingRight="15dp">
 
     <TextView
         android:id="@+id/alert_text"
         android:textSize="21dp"
+        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"

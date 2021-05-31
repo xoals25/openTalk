@@ -221,18 +221,20 @@
 
             <Button
                 android:id="@+id/finishbtn"
-                android:text="완 료"
-                android:textSize="20dp"
-                android:textColor="#FFFF"
-                android:paddingBottom="15dp"
                 android:layout_width="150dp"
                 android:layout_height="70dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/shadow_lobby_room_create_efect"
+                android:paddingBottom="15dp"
+                android:text="완 료"
+                android:textColor="#FFFF"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/pwd_layout"
-                />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pwd_layout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

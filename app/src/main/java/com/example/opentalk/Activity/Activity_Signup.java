@@ -37,6 +37,7 @@ import com.example.opentalk.Retrofit.ApiClient;
 import com.example.opentalk.Retrofit.SignupCk;
 import com.example.opentalk.Retrofit.SignupCkData;
 import com.example.opentalk.SecurityUtil.SecurityUtilSHA;
+import com.example.opentalk.ServerIp;
 import com.example.opentalk.VolleyRequestQhelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -440,7 +441,7 @@ public class Activity_Signup extends AppCompatActivity {
         signup_pwd = signup_pwd_input.getText().toString();
         //SHA-256 암호화
         signup_pwd = SecurityUtilSHA.encryptSHA256(signup_pwd);
-        String serverUrl="http://3.36.188.116/opentalk/signup.php";
+        String serverUrl="http://"+ ServerIp.IP_ADDRESS_ADD_FOLDER_NAME+"/signup.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

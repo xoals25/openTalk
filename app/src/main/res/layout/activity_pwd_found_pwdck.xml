@@ -37,7 +37,7 @@
             android:layout_marginLeft="22dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="22dp"
-            android:text="비밀번호를 찾고자 하는 아이디와 가입할때 등록하셨던 핸드폰번호를 입력해주세요."
+            android:text="비밀번호를 찾고자 하는 아이디와 가입할 때 등록하셨던 핸드폰 번호를 입력 해주세요."
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/pwdck_parent_view" />

@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.example.opentalk.Activity.Activity_Lobby;
 import com.example.opentalk.Activity.Activity_Login_Main;
+import com.example.opentalk.ServerIp;
 import com.example.opentalk.SharedPreference.PreferenceManager_member;
 
 import org.json.JSONObject;
@@ -24,8 +25,6 @@ import java.net.Socket;
 public class Socket_Other_LoginCk_thread extends Thread {
     String TAG = "Socket_Other_LoginCk_thread";
 
-    String SOCKET_SERVER_IP = "3.36.188.116";
-    int SOCKET_SERVER_PORT_LOGINCK = 8079;
     Socket socket;
     String userid;
     BufferedReader bufferedReader;
@@ -46,13 +45,14 @@ public class Socket_Other_LoginCk_thread extends Thread {
         super.run();
 
         try {
-            this.socket = new Socket(SOCKET_SERVER_IP, SOCKET_SERVER_PORT_LOGINCK);
+            this.socket = new Socket(ServerIp.SERVER_IP, ServerIp.SOCKET_SERVER_PORT_LOGINCK);
+            Log.d(TAG, "onCreateView: socket123 : "+socket);
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
             bufferedWriter.write(jsonObject+"\n");
             bufferedWriter.flush();
         }catch (IOException e){
-
+            Log.d(TAG, "run: ERROR!!"+e.toString());
         }
 
         String socket_data = null;

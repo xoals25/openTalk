@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.example.opentalk.BitmapConverter;
+import com.example.opentalk.ServerIp;
 import com.example.opentalk.Socket_my.SocketSSL;
 
 import org.json.JSONArray;
@@ -33,8 +34,6 @@ import io.socket.client.Socket;
 
 public class SignalingClient_WebRTC {
     private String TAG ="SignalingClient";
-    private static final String STREAM_HOST = "https://3.36.188.116:8080";
-//    private SignalingClient instance;
     private IO.Options options = new IO.Options();
     public Socket socket;
     public int room;
@@ -87,7 +86,7 @@ public class SignalingClient_WebRTC {
 //            IO.setDefaultHostnameVerifier((hostname, session) -> true);
 //            IO.setDefaultSSLContext(sslContext);
             SocketSSL.set(options);
-            socket = IO.socket(STREAM_HOST);
+            socket = IO.socket(ServerIp.STREAM_HOST);
             socket.connect();
 
             socket.emit("create or join", room,user_name);

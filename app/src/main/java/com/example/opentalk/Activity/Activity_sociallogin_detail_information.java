@@ -44,6 +44,7 @@ import com.example.opentalk.Retrofit.Login.LoginPrimiaryData;
 import com.example.opentalk.Retrofit.SignupCk;
 import com.example.opentalk.Retrofit.SignupCkData;
 import com.example.opentalk.SecurityUtil.SecurityUtilSHA;
+import com.example.opentalk.ServerIp;
 import com.example.opentalk.VolleyRequestQhelper;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -169,7 +170,7 @@ public class Activity_sociallogin_detail_information extends AppCompatActivity {
 
     /*회원가입 서버통신(볼리)*/
     public void signupUpload(String userid,String phone,String pwdSHA) {
-        String serverUrl="http://3.36.188.116/opentalk/signup.php";
+        String serverUrl="http://"+ ServerIp.IP_ADDRESS_ADD_FOLDER_NAME+"/signup.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -340,6 +341,7 @@ public class Activity_sociallogin_detail_information extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+
             PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(
                     verificationId,
                     signup_authnum_social.getText().toString()

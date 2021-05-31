@@ -27,6 +27,7 @@ import com.example.opentalk.Retrofit.ApiClient;
 import com.example.opentalk.Retrofit.Login.LoginPrimiary;
 import com.example.opentalk.Retrofit.Login.LoginPrimiaryData;
 import com.example.opentalk.SecurityUtil.SecurityUtilSHA;
+import com.example.opentalk.ServerIp;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -187,9 +188,8 @@ public class Activity_Login extends AppCompatActivity {
                 if(response.isSuccessful()){
                     boolean result = response.body().isResult();
                     if(result==true){
-                        String IP_ADDRESS = "3.36.188.116/opentalk";
                         LoginSelect loginSelect = new LoginSelect();
-                        loginSelect.execute("http://"+IP_ADDRESS+"/login.php",userid,login_pwd);
+                        loginSelect.execute("http://"+ ServerIp.IP_ADDRESS_ADD_FOLDER_NAME+"/login.php",userid,login_pwd);
                         Log.d(TAG, "onResponse: userid : "+userid);
                         Log.d(TAG, "onResponse: login_pwd : "+login_pwd);
                     }

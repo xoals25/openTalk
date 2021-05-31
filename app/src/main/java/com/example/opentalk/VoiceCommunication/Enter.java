@@ -4,6 +4,7 @@ package com.example.opentalk.VoiceCommunication;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.opentalk.ServerIp;
 import com.example.opentalk.VoiceCommunication.Data.OtherUserIP_Data;
 import com.example.opentalk.VoiceCommunication.HolePunching.HolePunchGOGOFIRST;
 import com.example.opentalk.VoiceCommunication.HolePunching.HolePunchGOGOTWO;
@@ -31,8 +32,6 @@ public class Enter extends Thread {
     DatagramSocket udp_socket;
     DatagramSocket voice_socket;
     DatagramPacket d_packet_receive;
-    public int port = 8088;
-    public String IP_ADDRESS = "3.36.188.116";
     String inetAddress;
 //    ArrayList<OtherUserIP_Data> otherUserPublicIPArrayList;
 //    ArrayList<OtherUserIP_Data> otherUserPrivateIPArrayList;
@@ -81,7 +80,7 @@ public class Enter extends Thread {
             jsonObject.put("privateIp",my_ip);
             String json_string = jsonObject.toString();
             json_buf = json_string.getBytes();
-            udp_packet = new DatagramPacket(json_buf,json_buf.length,InetAddress.getByName(IP_ADDRESS),port);
+            udp_packet = new DatagramPacket(json_buf,json_buf.length,InetAddress.getByName(ServerIp.SERVER_IP),ServerIp.SOCKET_SERVER_PORT_ENTER);
             udp_socket.send(udp_packet);
 
 //            ((MainActivity)MainActivity.mContext).server_udp_socket = new DatagramSocket(8888);

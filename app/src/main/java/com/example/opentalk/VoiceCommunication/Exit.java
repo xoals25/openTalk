@@ -2,6 +2,7 @@ package com.example.opentalk.VoiceCommunication;
 
 import android.util.Log;
 
+import com.example.opentalk.ServerIp;
 import com.example.opentalk.VoiceCommunication.Data.OtherUserIP_Voice_Data;
 
 import org.json.JSONObject;
@@ -22,7 +23,6 @@ public class Exit extends Thread {
     String TAG ="Exit";
     //port와 IP_ADDRESS는 Exit 클래스와 같아야한다.
     public int port = 8088;
-    public String IP_ADDRESS = "3.36.188.116";
     DatagramSocket udp_socket; //서버에게 보내줄것 ->서버에서 퇴장한 유저들 따로 또 알려주기(enter에서 이메일들을 모아두는 어레이리스트에서 값 지워주기 위해서)
     DatagramSocket voice_socket; //사용자들에게 보내줄 것
 
@@ -58,7 +58,7 @@ public class Exit extends Thread {
 
             udp_socket_buf = jsonObject.toString().getBytes();
 
-            datagramPacket = new DatagramPacket(udp_socket_buf,udp_socket_buf.length,InetAddress.getByName(IP_ADDRESS),port);
+            datagramPacket = new DatagramPacket(udp_socket_buf,udp_socket_buf.length,InetAddress.getByName(ServerIp.SERVER_IP),port);
             udp_socket.send(datagramPacket);
 
             user_send_msg ="퇴장";

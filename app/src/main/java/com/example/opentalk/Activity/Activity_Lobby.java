@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
@@ -50,6 +51,7 @@ import com.example.opentalk.Retrofit.FcmToken.FcmToken;
 import com.example.opentalk.Retrofit.FcmToken.FcmTokenData;
 import com.example.opentalk.Retrofit.Lobby_Search_Room;
 import com.example.opentalk.Retrofit.Lobby_Search_RoomData;
+import com.example.opentalk.ServerIp;
 import com.example.opentalk.SharedPreference.PreferenceManager_member;
 import com.example.opentalk.Socket_my.Socket_Other_LoginCk_thread;
 import com.example.opentalk.Socket_my.Socket_connect_offline_thread;
@@ -94,7 +96,6 @@ public class Activity_Lobby extends AppCompatActivity implements NPermission.OnP
     /*방뿌려주는,방입장하는 Http통신클래스 전역변수*/
     HttpConnection_Lobby_Rooms httpConnection_lobby_rooms;
     HttpConnection_room_enter httpConnection_room_enter;
-    String IP_ADDRESS = "3.36.188.116/opentalk";
     /*navigation drawer화면에 nickname과 email TextView*/
     TextView drawer_nickname;
     TextView drawer_emailid;
@@ -127,8 +128,6 @@ public class Activity_Lobby extends AppCompatActivity implements NPermission.OnP
     int rooms_num=10;
 
     /*socket 연결*/
-    String SOCKET_SERVER_IP = "3.36.188.116";
-    int SOCKET_SERVER_PORT = 8081;
     public static Socket socket_friend_list = null ;
     public Socket socket_other_loginCk = null;
 
@@ -151,6 +150,7 @@ public class Activity_Lobby extends AppCompatActivity implements NPermission.OnP
         setContentView(R.layout.activity_lobby);
         startService(new Intent(this, TaskCloseNoticeService.class));
         exceptnum.append("-1");
+
         nPermission = new NPermission(true);
         mainContext =this;
 //        setVolumeControlStream(AudioManager.STREAM_VOICE_CALL);
@@ -174,12 +174,11 @@ public class Activity_Lobby extends AppCompatActivity implements NPermission.OnP
                     String adapter_room_type = lobby_rooms_dataArrayList.get(position).getRoom_type();
                     String adapter_room_public = lobby_rooms_dataArrayList.get(position).getRoom_public();
                     String adapter_room_pwd ="";
-                    String IP_ADDRESS = "3.36.188.116/opentalk";
                     Log.d(TAG, "onClick: 확인1"+adapter_room_public);
                     if(adapter_room_public.equals("공개방")){
                         Log.d(TAG, "onClick: 확인2");
                         httpConnection_room_enter = new HttpConnection_room_enter(Activity_Lobby.this,adapter_room_type,adapter_room_id,lobby_rooms_dataArrayList.get(position).getRoom_title());
-                        httpConnection_room_enter.execute("http://"+IP_ADDRESS+"/room_enter.php",String.valueOf(adapter_room_id),adapter_room_public,adapter_room_pwd);
+                        httpConnection_room_enter.execute("http://"+ServerIp.IP_ADDRESS_ADD_FOLDER_NAME+"/room_enter.php",String.valueOf(adapter_room_id),adapter_room_public,adapter_room_pwd);
                     }
                     /****
                      * 현재 인원수가 꽉찬 비공개방을 클릭하게되면 비밀번호를 입력하는 창이뜨고 입력하고 확인을 누르면 인원수가 꽉찼다고 메시지가 뜨는데
@@ -188,7 +187,7 @@ public class Activity_Lobby extends AppCompatActivity implements NPermission.OnP
                      * ****/
                     else if(adapter_room_public.equals("비공개방")){
                         httpConnection_room_enter = new HttpConnection_room_enter(Activity_Lobby.this,adapter_room_type,adapter_room_id,lobby_rooms_dataArrayList.get(position).getRoom_title());
-                        AlertDialog_opentalk alertDialog_opentalk = new AlertDialog_opentalk(Activity_Lobby.this,httpConnection_room_enter,IP_ADDRESS,adapter_room_id,adapter_room_public);
+                        AlertDialog_opentalk alertDialog_opentalk = new AlertDialog_opentalk(Activity_Lobby.this,httpConnection_room_enter,ServerIp.IP_ADDRESS_ADD_FOLDER_NAME,adapter_room_id,adapter_room_public);
                         /*다이얼로그 만들어주기*/
                         alertDialog_opentalk.dialog();
                         // 창 띄우기
@@ -272,12 +271,13 @@ public class Activity_Lobby extends AppCompatActivity implements NPermission.OnP
     @Override
     protected void onResume() {
         super.onResume();
+//        Toast.makeText(this,"asdasd",Toast.LENGTH_SHORT).show();
         if (Build.VERSION.SDK_INT < 23 || isGranted) {
 
         } else {
             nPermission.requestPermission(this, Manifest.permission.CAMERA);
         }
-        profileImgToString = logindata.getImgString_tobitmap();
+
         if(!profileImgToString.equals("false")) {
             drawer_profileIMG.setImageBitmap(BitmapConverter.StringToBitmap(profileImgToString));
         }
@@ -304,7 +304,7 @@ public class Activity_Lobby extends AppCompatActivity implements NPermission.OnP
         logindata = getLoignDataPref(this,"login_inform");
         userid = logindata.getUserid();
         usernickname = logindata.getUsername();
-
+        profileImgToString = logindata.getImgString_tobitmap();
         /*방들을 lobby에 뿌려줄때 필요한 재료들 */
         lobby_room_RecyclerView = (RecyclerView)findViewById(R.id.lobby_room_RecyclerView);
         linearLayoutManager = new LinearLayoutManager(this);
@@ -364,6 +364,10 @@ public class Activity_Lobby extends AppCompatActivity implements NPermission.OnP
         ClientThread clientThread = new ClientThread();
         clientThread.start();
 
+        /*
+        * 중복 로그인 방지하기위한 코드
+        * Socket통신
+        * */
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("type", "login");
@@ -484,9 +488,6 @@ public class Activity_Lobby extends AppCompatActivity implements NPermission.OnP
     /*방 새로고침*/
     private void refreshbtn(){
 //        /*초기에 방들 뿌려주기*/
-//        String IP_ADDRESS = "3.36.188.116/opentalk";
-//        httpConnection_lobby_rooms = new HttpConnection_Lobby_Rooms(Activity_Lobby.this,adapter_lobby_rooms,lobby_rooms_dataArrayList);
-//        httpConnection_lobby_rooms.execute("http://"+IP_ADDRESS+"/lobby_rooms.php",String.valueOf(rooms_num));
         pagingnum = 1;
         String chat_spinner_text = chat_spinner.getSelectedItem().toString();
         exceptnum.delete(0,exceptnum.length()); //검색버튼을 눌러 새로 받아와야한다. 그래서 제외숫자를 다 지워준다.
@@ -509,8 +510,8 @@ public class Activity_Lobby extends AppCompatActivity implements NPermission.OnP
             try {
                 Log.d(TAG, "run: ClientThread");
                 //socket 객체생성(IP,PORT)
-                socket_friend_list = new Socket(SOCKET_SERVER_IP, SOCKET_SERVER_PORT);
-                Log.d(TAG, "onCreateView: socket : "+socket_friend_list);
+                socket_friend_list = new Socket(ServerIp.SERVER_IP, ServerIp.SOCKET_SERVER_PORT_CONNECT);
+                Log.d(TAG, "onCreateView: socket : "+socket_friend_list.getPort());
                 //PrintWriter는 File(String), OutputStream, Writer 등의 객체를 인수로 받아 더 간편하게 스트림을 연결할 수 있다.
 //                PrintWriter printWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket_friend_list.getOutputStream())));
 
@@ -560,12 +561,13 @@ public class Activity_Lobby extends AppCompatActivity implements NPermission.OnP
     protected void onDestroy() {
         super.onDestroy();
 //        Toast.makeText(this,"lobby_destory",Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "onDestroy: lobby 종료");
+        Log.d(TAG, "onDestroy: lobby 종료1");
 
         //여기에 종료한다는것을 알려주자.
         //단 누군가 다른기기에 접속해서 강제종료가 아닐경우 false=자기가 종료함 true = 강제 종료
         //밑에 스레드가 시작하면 다른기기에서 로그인했지만, 로그아웃처리가되어 친구들에게 로그아웃처럼 보인다.
-        if(compulsoryLogoutCk=false) {
+        if(!compulsoryLogoutCk) {
+            Log.d(TAG, "onDestroy: lobby 종료2 ");
             Socket_connect_offline_thread socket_connect_offline_thread = new Socket_connect_offline_thread();
             socket_connect_offline_thread.start();
         }
@@ -582,6 +584,7 @@ public class Activity_Lobby extends AppCompatActivity implements NPermission.OnP
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO}, 1);
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
@@ -589,6 +592,7 @@ public class Activity_Lobby extends AppCompatActivity implements NPermission.OnP
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         nPermission.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
     @Override
     public void onPermissionResult(String permission, boolean isGranted) {
         switch (permission) {

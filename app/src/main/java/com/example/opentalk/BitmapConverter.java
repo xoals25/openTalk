@@ -14,6 +14,7 @@ import android.graphics.RectF;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
@@ -26,10 +27,12 @@ public class BitmapConverter {
      * */
     public static Bitmap StringToBitmap(String encodedString) {
         try {
+            Log.d("TAG", "StringToBitmap: 확인1");
             byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
             return bitmap;
         } catch (Exception e) {
+            Log.d("TAG", "StringToBitmap: 확인2");
             e.getMessage();
             return null;
         }

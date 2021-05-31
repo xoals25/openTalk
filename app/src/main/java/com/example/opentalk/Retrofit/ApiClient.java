@@ -1,5 +1,6 @@
 package com.example.opentalk.Retrofit;
 
+import com.example.opentalk.ServerIp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -8,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient
 {
-    private static final String BASE_URL = "http://3.36.188.116/opentalk/";
+    private static final String BASE_URL = "http://"+ ServerIp.IP_ADDRESS_ADD_FOLDER_NAME +"/";
     private static Retrofit retrofit;
 
     public static Retrofit getApiClient()

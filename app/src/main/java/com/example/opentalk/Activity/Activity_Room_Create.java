@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView.OnScrollListener;
 import com.example.opentalk.CustomPwdMethod;
 import com.example.opentalk.Data.Logindata;
 import com.example.opentalk.R;
+import com.example.opentalk.ServerIp;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
 import org.json.JSONArray;
@@ -176,17 +177,16 @@ public class Activity_Room_Create extends AppCompatActivity {
                 String room_pwd = room_create_pwd_input.getText().toString();
                 Logindata logindata = getLoignDataPref(Activity_Room_Create.this,"login_inform");
                 String user_email = logindata.getUserid();
-                String IP_ADDRESS = "3.36.188.116/opentalk";
                 if(pwdroom.equals("공개방")){
                     if(!room_title.equals("")){
                         Room_Create room_create = new Room_Create();
-                        room_create.execute("http://"+IP_ADDRESS+"/room_create.php",room_title,room_type,pwdroom,room_pwd,String.valueOf(person_numlimit),user_email);
+                        room_create.execute("http://"+ ServerIp.IP_ADDRESS_ADD_FOLDER_NAME+"/room_create.php",room_title,room_type,pwdroom,room_pwd,String.valueOf(person_numlimit),user_email);
                     }
                 }
                 else if(pwdroom.equals("비공개방")){
                     if(!room_title.equals("") && !room_pwd.equals("")){
                         Room_Create room_create = new Room_Create();
-                        room_create.execute("http://"+IP_ADDRESS+"/room_create.php",room_title,room_type,pwdroom,room_pwd,String.valueOf(person_numlimit),user_email);
+                        room_create.execute("http://"+ServerIp.IP_ADDRESS_ADD_FOLDER_NAME+"/room_create.php",room_title,room_type,pwdroom,room_pwd,String.valueOf(person_numlimit),user_email);
                     }
                     else if(room_title.equals("")){
                         Toast.makeText(Activity_Room_Create.this,"방 제목을 입력해주세요.",Toast.LENGTH_SHORT).show();

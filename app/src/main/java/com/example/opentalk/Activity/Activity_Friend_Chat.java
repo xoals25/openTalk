@@ -1,19 +1,25 @@
 package com.example.opentalk.Activity;
 
+import android.app.Service;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,13 +41,19 @@ import com.example.opentalk.Retrofit.Lobby_Search_RoomData;
 import com.example.opentalk.Retrofit.SignupCk;
 import com.example.opentalk.Retrofit.SignupCkData;
 import com.example.opentalk.Socket_my.Socket_friend_chat_thread;
+import com.example.opentalk.SoftKeyboard;
 import com.example.opentalk.TimeProcess;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -77,23 +89,26 @@ public class Activity_Friend_Chat extends AppCompatActivity {
     public int pagingnum =1;
     /**페이징 관련 **/
     public int firstMysqlCahtnum = 0; //처음에 채팅 내용을 mysql에서 불러온 chat의 총개수
-    int firstPosition;
+    int firstPosition = -1;
     public int lastChatId =-1;
-    boolean pagingCheck =true;
+    public boolean pagingCheck =false;
     int addchatnum = 0;
     String pagingDay ="";
 
     /**채팅이 올라오는 리사이클러뷰 관련**/
-    RecyclerView friend_chat_recyclerview;
+    public RecyclerView friend_chat_recyclerview;
     public ArrayList<Chat_Msg_Data_Friend> chat_msg_data_ArrayList;
     public Adapter_Chat_Friend adapter_chat_friend;
     public Face_Chat_Friend_Handler face_chat_friend_handler;
     LinearLayoutManager linearLayoutManager;
 
     /**채팅 입력 관련**/
+    ConstraintLayout constlayouyFriendChat;
     EditText friend_chat_input;
+    LinearLayout linear_input;
     Button friend_chat_input_btn;
-
+    boolean keyboardCk =true;
+    SoftKeyboard softKeyboard;
 
 
     @Override
@@ -106,26 +121,25 @@ public class Activity_Friend_Chat extends AppCompatActivity {
         Log.d(TAG, "onCreate: 접속 확인 2");
         /*채팅 보내기*/
         friend_chat_input_btn.setOnClickListener(new ChatSendListener());
+
         friend_chat_recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-
+                Log.d(TAG, "onScrollStateChanged: scroll");
             }
 
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                Log.d(TAG, "onScrolled: firstMysqlCahtnum : "+firstMysqlCahtnum);
-                Log.d(TAG, "onScrolled: lastChatId : "+lastChatId);
+
                 if(firstMysqlCahtnum>50) {
-                    if(pagingCheck==true) {
+                    if(pagingCheck) {
                         firstPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
                         Log.d(TAG, "onScrolled: firstPosition : " + firstPosition);
                         Log.d(TAG, "onScrolled: pagingCheck == true firstPosition  : " + firstPosition);
 //                    int lastPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
 //                    int itemTotlaCount = recyclerView.getAdapter().getItemCount();
-
                         if (firstPosition == 15 || firstPosition==0) {
                             pagingCheck = false;
                             int fromnum = 50 * pagingnum;
@@ -136,7 +150,6 @@ public class Activity_Friend_Chat extends AppCompatActivity {
                             Log.d(TAG, "onScrollStateChanged: 확인작업 firstPosition != 15");
                         }
                     }
-
                 }
             }
         });
@@ -162,10 +175,9 @@ public class Activity_Friend_Chat extends AppCompatActivity {
         friend_chat_recyclerview = (RecyclerView)findViewById(R.id.friend_chat_recyclerview);
         chat_msg_data_ArrayList = new ArrayList<>();
         adapter_chat_friend = new Adapter_Chat_Friend(this,chat_msg_data_ArrayList);
+
         face_chat_friend_handler = new Face_Chat_Friend_Handler(adapter_chat_friend,friend_chat_recyclerview);
         linearLayoutManager = new LinearLayoutManager(this);
-//        linearLayoutManager.setReverseLayout(true);
-//        linearLayoutManager.setStackFromEnd(true);
 
         friend_chat_recyclerview.setLayoutManager(linearLayoutManager);
         friend_chat_recyclerview.setAdapter(adapter_chat_friend);
@@ -173,6 +185,8 @@ public class Activity_Friend_Chat extends AppCompatActivity {
         /*채팅 입력 관련*/
         friend_chat_input =(EditText)findViewById(R.id.friend_chat_input);
         friend_chat_input_btn = (Button)findViewById(R.id.friend_chat_input_btn);
+        constlayouyFriendChat = (ConstraintLayout)findViewById(R.id.constlayouy_friend_chat);
+        linear_input = (LinearLayout) findViewById(R.id.linear_input);
 
         Activity_Friend_Chat_context = this;
         /*채팅방 입장 알려주기*/
@@ -294,7 +308,7 @@ public class Activity_Friend_Chat extends AppCompatActivity {
                 chat_msg_data_ArrayList.add(0, chat_msg_data_friend);
                 pagingDay = yearmonthday;
             } else {
-                if(pagingDay!=yearmonthday){
+                if(!pagingDay.equals(yearmonthday)){
                     Chat_Msg_Data_Friend chat_msg_data_friend = new Chat_Msg_Data_Friend("nonickname", yearmonthday, ViewType_Code.ViewType.CENTER_CONTENT, readstate, senddate, null, "day", "-1", "");
                     chat_msg_data_ArrayList.add(0, chat_msg_data_friend);
                 }
@@ -302,7 +316,7 @@ public class Activity_Friend_Chat extends AppCompatActivity {
             }
         }
         else{
-            if(pagingDay!=yearmonthday){
+            if(!pagingDay.equals(yearmonthday)){
                 Chat_Msg_Data_Friend chat_msg_data_friend = new Chat_Msg_Data_Friend("nonickname", yearmonthday, ViewType_Code.ViewType.CENTER_CONTENT, readstate, senddate, null, "day", "-1", "");
                 chat_msg_data_ArrayList.add(0, chat_msg_data_friend);
                 pagingDay = yearmonthday;
@@ -324,6 +338,7 @@ public class Activity_Friend_Chat extends AppCompatActivity {
                 jsonObject.put("roomnum", roomnum);
                 jsonObject.put("msg",msg);
                 jsonObject.put("to",friendid);
+                jsonObject.put("date",getCurrentDate());
                 jsonObject.put("from",Activity_Lobby.userid);
                 jsonObject.put("from_nickname",mynickname);
                 jsonObject.put("msgtype","textmsg");
@@ -355,6 +370,9 @@ public class Activity_Friend_Chat extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+//        if(chat_msg_data_ArrayList.size()!=0){
+//            friend_chat_recyclerview.smoothScrollToPosition(chat_msg_data_ArrayList.size()-1);
+//        }
 
     }
 
@@ -379,5 +397,11 @@ public class Activity_Friend_Chat extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Activity_Friend_Chat_context = null;
+    }
+
+    public String getCurrentDate(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",java.util.Locale.getDefault());
+        Date dateTime = Calendar.getInstance().getTime();
+        return dateFormat.format(dateTime);
     }
 }
